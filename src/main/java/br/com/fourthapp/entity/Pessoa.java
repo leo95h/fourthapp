@@ -5,12 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author fernando
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "pessoas.findAll", query = "select p from Pessoa p"),
+    @NamedQuery(name = "pessoas.findByNome", query = "select p from Pessoa p where p.nome = :nome"),
+    @NamedQuery(name = "pessoas.findByEmail", query = "select p from Pessoa p where p.email = :nome")
+})
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;

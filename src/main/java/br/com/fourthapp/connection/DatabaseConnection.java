@@ -17,10 +17,11 @@ public final class DatabaseConnection {
         factory = Persistence.createEntityManagerFactory("fourthAppPU");
     }
 
-    public static void createInstance() {
+    public static DatabaseConnection createInstance() {
         if (instance == null) {
             instance = new DatabaseConnection();
         }
+        return instance;
     }
 
     public static EntityManager getEntityManager() {
