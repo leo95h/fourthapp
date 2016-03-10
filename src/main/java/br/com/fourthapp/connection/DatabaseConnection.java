@@ -12,6 +12,7 @@ public final class DatabaseConnection {
 
     private static DatabaseConnection instance;
     private static EntityManagerFactory factory;
+    private EntityManager entityManager;
 
     private DatabaseConnection() {
         factory = Persistence.createEntityManagerFactory("fourthAppPU");
@@ -24,7 +25,10 @@ public final class DatabaseConnection {
         return instance;
     }
 
-    public static EntityManager getEntityManager() {
-        return factory.createEntityManager();
+    public EntityManager getEntityManager() {
+        if (entityManager == null || !entityManager.isOpen()) {
+            entityManager = factory.createEntityManager();
+        }
+        return entityManager;
     }
 }
