@@ -1,36 +1,34 @@
 package br.com.fourthapp.entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author fernando
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "pessoas.findAll", query = "select p from Pessoa p"),
-    @NamedQuery(name = "pessoas.findByNome", query = "select p from Pessoa p where p.nome = :nome"),
-    @NamedQuery(name = "pessoas.findByEmail", query = "select p from Pessoa p where p.email = :nome")
-})
-public class Pessoa implements Serializable {
+public class Mensagem implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
-    private String email;
-    @OneToOne
+    private String texto;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Calendar dataMensagem;
+    @ManyToOne
     private Usuario usuario;
+    @ManyToOne
+    private Grupo grupo;
 
-    public Pessoa() {
+    public Mensagem() {
     }
 
     public Long getId() {
@@ -41,20 +39,20 @@ public class Pessoa implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTexto() {
+        return texto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTexto(String texto) {
+        this.texto = texto;
     }
 
-    public String getEmail() {
-        return email;
+    public Calendar getDataMensagem() {
+        return dataMensagem;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDataMensagem(Calendar dataMensagem) {
+        this.dataMensagem = dataMensagem;
     }
 
     public Usuario getUsuario() {
@@ -63,6 +61,14 @@ public class Pessoa implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
     }
 
     @Override
@@ -75,10 +81,10 @@ public class Pessoa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pessoa)) {
+        if (!(object instanceof Mensagem)) {
             return false;
         }
-        Pessoa other = (Pessoa) object;
+        Mensagem other = (Mensagem) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -87,7 +93,7 @@ public class Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return nome + " - " + email;
+        return "br.com.fourthapp.entity.Mensagem[ id=" + id + " ]";
     }
 
 }
