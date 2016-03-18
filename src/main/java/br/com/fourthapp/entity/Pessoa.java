@@ -15,9 +15,8 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "pessoas.findAll", query = "select p from Pessoa p"),
-    @NamedQuery(name = "pessoas.findByNome", query = "select p from Pessoa p where p.nome = :nome"),
-    @NamedQuery(name = "pessoas.findByEmail", query = "select p from Pessoa p where p.email = :nome")
+    @NamedQuery(name = "Pessoa.findByNome", query = "select p from Pessoa p where p.nome = :nome"),
+    @NamedQuery(name = "Pessoa.findByEmail", query = "select p from Pessoa p where p.email = :nome")
 })
 public class Pessoa implements Serializable {
 

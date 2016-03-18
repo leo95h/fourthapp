@@ -51,6 +51,13 @@ public abstract class AbstractDAO<T> implements Serializable {
         return q.getResultList();
     }
 
+    public int count() {
+        String hql = "select count(obj.id) as amount from " + clazz.getSimpleName() + " obj";
+        Query q = getEntityManager().createQuery(hql);
+        Long value = (Long) q.getSingleResult();
+        return value.intValue();
+    }
+
     protected void beginTransaction() {
         getEntityManager().getTransaction().begin();
     }
