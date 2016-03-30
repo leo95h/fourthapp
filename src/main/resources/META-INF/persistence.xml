@@ -3,6 +3,13 @@
   <persistence-unit name="fourthAppPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>br.com.fourthapp.entity.Pessoa</class>
+    <class>br.com.fourthapp.entity.Usuario</class>
+    <class>br.com.fourthapp.entity.Arquivo</class>
+    <class>br.com.fourthapp.entity.Publicacao</class>
+    <class>br.com.fourthapp.entity.Avaliacao</class>
+    <class>br.com.fourthapp.entity.Comentario</class>
+    <class>br.com.fourthapp.entity.Mensagem</class>
+    <class>br.com.fourthapp.entity.Grupo</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
