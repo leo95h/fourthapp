@@ -31,6 +31,13 @@ public abstract class AbstractDAO<T> implements Serializable {
         commitAndCloseTransaction();
     }
 
+    public T merge(T entity) {
+        beginTransaction();
+        entity = getEntityManager().merge(entity);
+        commitAndCloseTransaction();
+        return entity;
+    }
+
     public void delete(T entity) {
         beginTransaction();
         getEntityManager().remove(getEntityManager().merge(entity));
