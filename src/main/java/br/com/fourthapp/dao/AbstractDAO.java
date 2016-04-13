@@ -31,6 +31,13 @@ public abstract class AbstractDAO<T> implements Serializable {
         commitAndCloseTransaction();
     }
 
+    public T merge(T entity) {
+        beginTransaction();
+        entity = getEntityManager().merge(entity);
+        commitAndCloseTransaction();
+        return entity;
+    }
+
     public void delete(T entity) {
         beginTransaction();
         getEntityManager().remove(getEntityManager().merge(entity));
@@ -49,6 +56,13 @@ public abstract class AbstractDAO<T> implements Serializable {
         String hql = "from " + clazz.getSimpleName() + " obj order by obj.id";
         Query q = getEntityManager().createQuery(hql);
         return q.getResultList();
+    }
+
+    public int count() {
+        String hql = "select count(obj.id) as amount from " + clazz.getSimpleName() + " obj";
+        Query q = getEntityManager().createQuery(hql);
+        Long value = (Long) q.getSingleResult();
+        return value.intValue();
     }
 
     protected void beginTransaction() {

@@ -1,35 +1,37 @@
 package br.com.fourthapp.entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author fernando
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Pessoa.findByNome", query = "select p from Pessoa p where p.nome = :nome"),
-    @NamedQuery(name = "Pessoa.findByEmail", query = "select p from Pessoa p where p.email = :nome")
-})
-public class Pessoa implements Serializable {
+public class Avaliacao implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
-    private String email;
-    @OneToOne
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Calendar dataAvaliacao;
+    @Enumerated(EnumType.STRING)
+    private TipoAvaliacao tipoAvaliacao;
+    @ManyToOne
     private Usuario usuario;
+    @ManyToOne
+    private Publicacao publicacao;
 
-    public Pessoa() {
+    public Avaliacao() {
     }
 
     public Long getId() {
@@ -40,20 +42,20 @@ public class Pessoa implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Calendar getDataAvaliacao() {
+        return dataAvaliacao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDataAvaliacao(Calendar dataAvaliacao) {
+        this.dataAvaliacao = dataAvaliacao;
     }
 
-    public String getEmail() {
-        return email;
+    public TipoAvaliacao getTipoAvaliacao() {
+        return tipoAvaliacao;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTipoAvaliacao(TipoAvaliacao tipoAvaliacao) {
+        this.tipoAvaliacao = tipoAvaliacao;
     }
 
     public Usuario getUsuario() {
@@ -62,6 +64,14 @@ public class Pessoa implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Publicacao getPublicacao() {
+        return publicacao;
+    }
+
+    public void setPublicacao(Publicacao publicacao) {
+        this.publicacao = publicacao;
     }
 
     @Override
@@ -74,10 +84,10 @@ public class Pessoa implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pessoa)) {
+        if (!(object instanceof Avaliacao)) {
             return false;
         }
-        Pessoa other = (Pessoa) object;
+        Avaliacao other = (Avaliacao) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -86,7 +96,7 @@ public class Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return nome + " - " + email;
+        return "br.com.fourthapp.entity.Avaliacao[ id=" + id + " ]";
     }
 
 }

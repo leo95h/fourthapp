@@ -31,4 +31,16 @@ public final class DatabaseConnection {
         }
         return entityManager;
     }
+
+    public void closeConnection() {
+        try {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+            if (instance != null) {
+                instance.closeConnection();
+            }
+        } catch (NotValidConnectionException ex) {
+        }
+    }
 }
