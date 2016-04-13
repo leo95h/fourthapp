@@ -15,35 +15,31 @@ import org.junit.Test;
  */
 public class ConnectionTest {
 
-    private static DatabaseConnection dc;
+    private static EntityManager entityManager;
 
     public ConnectionTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("@BeforeClass");
-        dc = DatabaseConnection.createInstance();
+        entityManager = DatabaseConnection.createInstance().getEntityManager();
     }
 
     @AfterClass
     public static void tearDownClass() {
-        System.out.println("@AfterClass");
     }
 
     @Before
     public void setUp() {
-        System.out.println("@Before");
     }
 
     @After
     public void tearDown() {
-        System.out.println("@After");
     }
 
     @Test
     public void getEntityManagerInstance() {
-        EntityManager em = dc.getEntityManager();
-        Assert.assertTrue(em.isOpen());
+        Assert.assertTrue("Conexão ativa!", entityManager.isOpen());
     }
+
 }

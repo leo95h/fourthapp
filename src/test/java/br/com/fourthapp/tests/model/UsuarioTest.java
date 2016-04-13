@@ -2,6 +2,7 @@ package br.com.fourthapp.tests.model;
 
 import br.com.fourthapp.dao.impl.UsuarioDAOImpl;
 import br.com.fourthapp.entity.Usuario;
+import br.com.fourthapp.entity.fixture.UsuarioFixture;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -19,6 +20,7 @@ public class UsuarioTest {
 
     private static UsuarioDAOImpl dao;
     private static Usuario usuario;
+    private static List<Usuario> usuarios;
 
     public UsuarioTest() {
 
@@ -27,7 +29,8 @@ public class UsuarioTest {
     @BeforeClass
     public static void setUpClass() {
         dao = new UsuarioDAOImpl();
-        usuario = new Usuario("paschualetto", "senha10");
+        usuario = UsuarioFixture.usuarioPadrao();
+        usuarios = UsuarioFixture.usuarios(10);
     }
 
     @AfterClass
@@ -44,11 +47,9 @@ public class UsuarioTest {
 
     @Test
     public void persistIfNotExists() {
-        Usuario u = dao.buscarUsuarioPorLogin(usuario.getLogin());
-        if (u == null) {
-            u = dao.merge(usuario);
+        if (!existsUsuario(usuario.getLogin())) {
+            dao.save(usuario);
         }
-        Assert.assertNotNull(u);
     }
 
     @Test
@@ -62,5 +63,9 @@ public class UsuarioTest {
     public void countUsuarios() {
         int value = dao.count();
         Assert.assertFalse(value == 0);
+    }
+
+    private boolean existsUsuario(String login) {
+        return dao.buscarUsuarioPorLogin(login) != null;
     }
 }
