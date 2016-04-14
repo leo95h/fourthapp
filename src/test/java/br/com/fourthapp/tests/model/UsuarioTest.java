@@ -23,11 +23,12 @@ public class UsuarioTest {
     private static List<Usuario> usuarios;
 
     public UsuarioTest() {
-
+        System.out.println("Construtor!");
     }
 
     @BeforeClass
     public static void setUpClass() {
+        System.out.println("@BeforeClass!");
         dao = new UsuarioDAOImpl();
         usuario = UsuarioFixture.usuarioPadrao();
         usuarios = UsuarioFixture.usuarios(10);
@@ -35,18 +36,22 @@ public class UsuarioTest {
 
     @AfterClass
     public static void tearDownClass() {
+        System.out.println("@AfterClass!");
     }
 
     @Before
     public void setUp() {
+        System.out.println("@Before!");
     }
 
     @After
     public void tearDown() {
+        System.out.println("@After!");
     }
 
     @Test
     public void persistIfNotExists() {
+        System.out.println("PersistIfNotExists!");
         if (!existsUsuario(usuario.getLogin())) {
             dao.save(usuario);
         }
@@ -54,6 +59,7 @@ public class UsuarioTest {
 
     @Test
     public void findAllUsuarios() {
+        System.out.println("FindAllUsuarios!");
         List<Usuario> usuarios = new ArrayList<Usuario>();
         usuarios = dao.listAll();
         Assert.assertFalse(usuarios.isEmpty());
@@ -61,10 +67,20 @@ public class UsuarioTest {
 
     @Test
     public void countUsuarios() {
+        System.out.println("CountUsuarios!");
         int value = dao.count();
         Assert.assertFalse(value == 0);
     }
 
+    @Test
+    public void persistLotUsuarios() {
+        for(Usuario u : usuarios) {
+            if(!existsUsuario(u.getLogin())) {
+                dao.save(u);
+            }
+        }
+    }
+    
     private boolean existsUsuario(String login) {
         return dao.buscarUsuarioPorLogin(login) != null;
     }
