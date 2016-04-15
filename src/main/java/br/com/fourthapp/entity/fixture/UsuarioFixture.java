@@ -30,11 +30,12 @@ public class UsuarioFixture {
         if (size <= 0) {
             return usuarios;
         }
-        for (int x = 1; x <= size; x++) {
+        for (int x = 1; x < size; x++) {
             String login = LOGIN + x;
             String password = PASSWORD + x;
             usuarios.add(novoUsuario(login, password));
         }
+        usuarios.add(usuarioPadrao());
         return usuarios;
     }
 

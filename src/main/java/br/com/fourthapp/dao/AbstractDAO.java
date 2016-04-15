@@ -1,6 +1,7 @@
 package br.com.fourthapp.dao;
 
 import br.com.fourthapp.connection.DatabaseConnection;
+import br.com.fourthapp.util.FourthAppException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,49 +21,101 @@ public abstract class AbstractDAO<T> implements Serializable {
     }
 
     public void save(T entity) {
-        beginTransaction();
-        getEntityManager().persist(entity);
-        commitAndCloseTransaction();
+        try {
+            beginTransaction();
+            getEntityManager().persist(entity);
+            commitAndCloseTransaction();
+        } catch (Exception ex) {
+            String error = "Error to save: " + ex.getMessage();
+            closeTransaction();
+            throw new FourthAppException(error, ex);
+        }
     }
 
     public void update(T entity) {
-        beginTransaction();
-        getEntityManager().merge(entity);
-        commitAndCloseTransaction();
+        try {
+            beginTransaction();
+            getEntityManager().merge(entity);
+            commitAndCloseTransaction();
+        } catch (Exception ex) {
+            String error = "Error to update: " + ex.getMessage();
+            closeTransaction();
+            throw new FourthAppException(error, ex);
+        }
     }
 
     public T merge(T entity) {
-        beginTransaction();
-        entity = getEntityManager().merge(entity);
-        commitAndCloseTransaction();
-        return entity;
+        try {
+            beginTransaction();
+            entity = getEntityManager().merge(entity);
+            commitAndCloseTransaction();
+            return entity;
+        } catch (Exception ex) {
+            String error = "Error to merge: " + ex.getMessage();
+            closeTransaction();
+            throw new FourthAppException(error, ex);
+        }
     }
 
     public void delete(T entity) {
-        beginTransaction();
-        getEntityManager().remove(getEntityManager().merge(entity));
-        commitAndCloseTransaction();
+        try {
+            beginTransaction();
+            getEntityManager().remove(getEntityManager().merge(entity));
+            commitAndCloseTransaction();
+        } catch (Exception ex) {
+            String error = "Error to delete: " + ex.getMessage();
+            closeTransaction();
+            throw new FourthAppException(error, ex);
+        }
+    }
+
+    public void deleteAll() {
+        try {
+            beginTransaction();
+            getEntityManager().createQuery("delete from " + clazz.getSimpleName()).executeUpdate();
+            commitAndCloseTransaction();
+        } catch (Exception ex) {
+            String error = "Error to delete all: " + ex.getMessage();
+            closeTransaction();
+            throw new FourthAppException(error, ex);
+        }
     }
 
     public T recover(Class clazz, Object id) {
-        return (T) getEntityManager().find(clazz, id);
+        try {
+            return (T) getEntityManager().find(clazz, id);
+        } catch (Exception ex) {
+            throw new FourthAppException(ex.getMessage(), ex);
+        }
     }
 
     public T findById(Object id) {
-        return (T) getEntityManager().find(clazz, id);
+        try {
+            return (T) getEntityManager().find(clazz, id);
+        } catch (Exception ex) {
+            throw new FourthAppException(ex.getMessage(), ex);
+        }
     }
 
     public List<T> listAll() {
-        String hql = "from " + clazz.getSimpleName() + " obj order by obj.id";
-        Query q = getEntityManager().createQuery(hql);
-        return q.getResultList();
+        try {
+            String hql = "from " + clazz.getSimpleName() + " obj order by obj.id";
+            Query q = getEntityManager().createQuery(hql);
+            return q.getResultList();
+        } catch (Exception ex) {
+            throw new FourthAppException(ex.getMessage(), ex);
+        }
     }
 
     public int count() {
-        String hql = "select count(obj.id) as amount from " + clazz.getSimpleName() + " obj";
-        Query q = getEntityManager().createQuery(hql);
-        Long value = (Long) q.getSingleResult();
-        return value.intValue();
+        try {
+            String hql = "select count(obj.id) as amount from " + clazz.getSimpleName() + " obj";
+            Query q = getEntityManager().createQuery(hql);
+            Long value = (Long) q.getSingleResult();
+            return value.intValue();
+        } catch (Exception ex) {
+            throw new FourthAppException(ex.getMessage(), ex);
+        }
     }
 
     protected void beginTransaction() {
@@ -74,11 +127,11 @@ public abstract class AbstractDAO<T> implements Serializable {
         closeTransaction();
     }
 
-    private void commit() {
+    protected void commit() {
         getEntityManager().getTransaction().commit();
     }
 
-    private void closeTransaction() {
+    protected void closeTransaction() {
         getEntityManager().close();
     }
 

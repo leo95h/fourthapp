@@ -1,5 +1,6 @@
 package br.com.fourthapp.entity;
 
+import br.com.fourthapp.util.Criptografia;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
@@ -36,7 +37,7 @@ public class Usuario implements Serializable {
 
     public Usuario(String login, String senha) {
         this.login = login;
-        this.senha = senha;
+        this.senha = Criptografia.encriptar(senha);
     }
 
     public Long getId() {
@@ -60,7 +61,7 @@ public class Usuario implements Serializable {
     }
 
     public void setSenha(String senha) {
-        this.senha = senha;
+        this.senha = Criptografia.encriptar(senha);
     }
 
     public Set<Grupo> getGrupos() {
