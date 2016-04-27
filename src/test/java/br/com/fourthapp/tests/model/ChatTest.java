@@ -12,26 +12,26 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author fernando
- * @see Giovanni
+ * @author user
+ * @see Julio
  */
-public class MensagemTest {
-    
-    public MensagemTest() {
+public class ChatTest {
+
+    public ChatTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
