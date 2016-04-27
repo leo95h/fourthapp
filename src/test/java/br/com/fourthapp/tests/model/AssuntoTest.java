@@ -13,11 +13,11 @@ import org.junit.BeforeClass;
 /**
  *
  * @author fernando
- * @see Giovanni
+ * @see Sevilha
  */
-public class MensagemTest {
+public class AssuntoTest {
     
-    public MensagemTest() {
+    public AssuntoTest() {
     }
     
     @BeforeClass
