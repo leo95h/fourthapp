@@ -10,6 +10,9 @@
     <class>br.com.fourthapp.entity.Comentario</class>
     <class>br.com.fourthapp.entity.Mensagem</class>
     <class>br.com.fourthapp.entity.Grupo</class>
+    <class>br.com.fourthapp.entity.Chat</class>
+    <class>br.com.fourthapp.entity.Assunto</class>
+    <class>br.com.fourthapp.entity.Propaganda</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
