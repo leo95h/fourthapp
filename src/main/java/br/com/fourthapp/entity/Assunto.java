@@ -1,34 +1,33 @@
 package br.com.fourthapp.entity;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author fernando
  */
 @Entity
-public class Mensagem implements Serializable {
+public class Assunto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String texto;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Calendar dataMensagem;
+    private String nome;
     @ManyToOne
-    private Usuario usuario;
-    @ManyToOne
-    private Chat chat;
+    private Assunto superior;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "superior", orphanRemoval = true)
+    private Set<Assunto> assuntos;
 
-    public Mensagem() {
+    public Assunto() {
     }
 
     public Long getId() {
@@ -39,39 +38,29 @@ public class Mensagem implements Serializable {
         this.id = id;
     }
 
-    public String getTexto() {
-        return texto;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Calendar getDataMensagem() {
-        return dataMensagem;
+    public Assunto getSuperior() {
+        return superior;
     }
 
-    public void setDataMensagem(Calendar dataMensagem) {
-        this.dataMensagem = dataMensagem;
+    public void setSuperior(Assunto superior) {
+        this.superior = superior;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Set<Assunto> getAssuntos() {
+        return assuntos;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setAssuntos(Set<Assunto> assuntos) {
+        this.assuntos = assuntos;
     }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
-
-    
 
     @Override
     public int hashCode() {
@@ -83,10 +72,10 @@ public class Mensagem implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mensagem)) {
+        if (!(object instanceof Assunto)) {
             return false;
         }
-        Mensagem other = (Mensagem) object;
+        Assunto other = (Assunto) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -95,7 +84,7 @@ public class Mensagem implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.fourthapp.entity.Mensagem[ id=" + id + " ]";
+        return nome;
     }
 
 }

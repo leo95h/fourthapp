@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.fourthapp.tests.model;
+package br.com.fourthapp.tests.util;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author fernando
- * @see Giovanni
+ * @see Leticia
  */
-public class MensagemTest {
+public class CriptografiaTest {
     
-    public MensagemTest() {
+    public CriptografiaTest() {
     }
     
     @BeforeClass
