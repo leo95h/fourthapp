@@ -5,13 +5,14 @@ import java.util.Calendar;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -20,6 +21,10 @@ import javax.persistence.Temporal;
  * @author fernando
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Publicacao.findByNome", query = "select p from Publicacao p where p.nome = :nome")
+})
+
 public class Publicacao implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,6 +47,17 @@ public class Publicacao implements Serializable {
 
     public Publicacao() {
     }
+
+    public Publicacao(String nome, Calendar dataPublicacao, String texto, Set<Arquivo> arquivos, Set<Avaliacao> avaliacoes, Set<Comentario> comentarios) {
+        this.nome = nome;
+        this.dataPublicacao = dataPublicacao;
+        this.texto = texto;
+        this.arquivos = arquivos;
+        this.avaliacoes = avaliacoes;
+        this.comentarios = comentarios;
+    }
+    
+    
 
     public Long getId() {
         return id;

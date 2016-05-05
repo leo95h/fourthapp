@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
  * @author fernando
  */
 @Entity
-public class Grupo implements Serializable {
+public class Chat implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -23,12 +23,12 @@ public class Grupo implements Serializable {
     private Long id;
     private String nome;
     @ManyToMany
-    @JoinTable(name = "grupo_usuario", joinColumns = {
-        @JoinColumn(name = "grupo_id")}, inverseJoinColumns = {
+    @JoinTable(name = "chat_usuario", joinColumns = {
+        @JoinColumn(name = "chat_id")}, inverseJoinColumns = {
         @JoinColumn(name = "usuario_id")})
     private Set<Usuario> usuarios;
 
-    public Grupo() {
+    public Chat() {
     }
 
     public Long getId() {
@@ -65,10 +65,10 @@ public class Grupo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Grupo)) {
+        if (!(object instanceof Chat)) {
             return false;
         }
-        Grupo other = (Grupo) object;
+        Chat other = (Chat) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

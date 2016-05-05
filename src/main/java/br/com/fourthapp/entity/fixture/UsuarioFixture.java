@@ -11,7 +11,7 @@ import java.util.List;
 public class UsuarioFixture {
 
     private static final String LOGIN = "fernando";
-    private static final String PASSWORD = "senha10";
+    private static final String PASSWORD = "senha";
 
     public static Usuario usuarioPadrao() {
         return novoUsuario(LOGIN, PASSWORD);
@@ -30,10 +30,12 @@ public class UsuarioFixture {
         if (size <= 0) {
             return usuarios;
         }
-        for (int x = 0; x <= size; x++) {
-            String login = LOGIN + size;
-            usuarios.add(novoUsuario(login, PASSWORD));
+        for (int x = 1; x < size; x++) {
+            String login = LOGIN + x;
+            String password = PASSWORD + x;
+            usuarios.add(novoUsuario(login, password));
         }
+        usuarios.add(usuarioPadrao());
         return usuarios;
     }
 

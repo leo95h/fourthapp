@@ -1,7 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.fourthapp.tests.model;
 
-import br.com.fourthapp.dao.PessoaDAO;
-import br.com.fourthapp.dao.impl.PessoaDAOImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -9,15 +12,12 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author fernando
- * @see Celia
+ * @author user
+ * @see Julio
  */
-public class PessoaTest {
+public class ChatTest {
 
-    private PessoaDAO dao;
-    
-    public PessoaTest() {
-        dao = new PessoaDAOImpl();
+    public ChatTest() {
     }
 
     @BeforeClass
