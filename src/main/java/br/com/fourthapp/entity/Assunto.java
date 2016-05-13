@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -15,6 +17,10 @@ import javax.persistence.OneToMany;
  * @author fernando
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Assunto.findByNome", query = "select a from Assunto a where a.nome = :nome"),
+    @NamedQuery(name = "Assunto.findBySuperior", query = "select a from Assunto a where a.superior = :superior")
+})
 public class Assunto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,6 +34,15 @@ public class Assunto implements Serializable {
     private Set<Assunto> assuntos;
 
     public Assunto() {
+    }
+
+    public Assunto(String nome) {
+        this.nome = nome;
+    }
+
+    public Assunto(String nome, Assunto superior) {
+        this.nome = nome;
+        this.superior = superior;
     }
 
     public Long getId() {
