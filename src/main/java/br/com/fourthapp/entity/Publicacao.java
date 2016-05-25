@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,6 +36,8 @@ public class Publicacao implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar dataPublicacao;
     private String texto;
+    @ManyToOne
+    private Usuario usuario;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "arquivo_publicacao", joinColumns = {
         @JoinColumn(name = "publicacao_id")}, inverseJoinColumns = {
@@ -48,16 +51,12 @@ public class Publicacao implements Serializable {
     public Publicacao() {
     }
 
-    public Publicacao(String nome, Calendar dataPublicacao, String texto, Set<Arquivo> arquivos, Set<Avaliacao> avaliacoes, Set<Comentario> comentarios) {
+    public Publicacao(String nome, Calendar dataPublicacao, String texto, Usuario usuario) {
         this.nome = nome;
         this.dataPublicacao = dataPublicacao;
         this.texto = texto;
-        this.arquivos = arquivos;
-        this.avaliacoes = avaliacoes;
-        this.comentarios = comentarios;
+        this.usuario = usuario;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -97,6 +96,14 @@ public class Publicacao implements Serializable {
 
     public void setArquivos(Set<Arquivo> arquivos) {
         this.arquivos = arquivos;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Set<Avaliacao> getAvaliacoes() {

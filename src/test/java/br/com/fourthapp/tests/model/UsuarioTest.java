@@ -3,7 +3,6 @@ package br.com.fourthapp.tests.model;
 import br.com.fourthapp.dao.impl.UsuarioDAOImpl;
 import br.com.fourthapp.entity.Usuario;
 import br.com.fourthapp.entity.fixture.UsuarioFixture;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -18,7 +17,6 @@ public class UsuarioTest {
 
     private static UsuarioDAOImpl dao;
     private static Usuario usuarioPadrao;
-    private static Usuario usuarioTester;
     private static List<Usuario> usuarios;
     private static final int BUCKET_USUARIOS = 10;
 
@@ -29,7 +27,6 @@ public class UsuarioTest {
     public static void setUpClass() {
         dao = new UsuarioDAOImpl();
         usuarioPadrao = UsuarioFixture.usuarioPadrao();
-        usuarioTester = new Usuario("tester", "tester");
         usuarios = UsuarioFixture.usuarios(BUCKET_USUARIOS);
         populateDatabase();
     }
@@ -58,37 +55,28 @@ public class UsuarioTest {
 
     @Test
     public void testBuscarUsuarioPorLogin() {
-        Assert.assertNotNull(dao.buscarUsuarioPorLogin(usuarioPadrao.getLogin()));
+        Assert.assertNotNull(dao.buscarUsuarioPorLogin(usuarios.get(0).getLogin()));
     }
 
     @Test
     public void testFindAllUsuarios() {
-        List<Usuario> usuarios = new ArrayList<>();
-        usuarios = dao.listAll();
-        Assert.assertFalse(usuarios.isEmpty());
+        Assert.assertFalse(dao.listAll().isEmpty());
     }
 
     @Test
     public void testCountUsuarios() {
-        int value = dao.count();
-        Assert.assertFalse(value == 0);
+        Assert.assertFalse(dao.count() == 0);
     }
 
     @Test
     public void testSaveUsuario() {
-        dao.save(usuarioTester);
-        Assert.assertNotNull(dao.buscarUsuarioPorLogin(usuarioTester.getLogin()));
+        dao.save(usuarioPadrao);
+        Assert.assertNotNull(dao.buscarUsuarioPorLogin(usuarioPadrao.getLogin()));
     }
 
     @Test
     public void testUpdateUsuario() {
-        Usuario u = new Usuario();
-        for (Usuario user : dao.listAll()) {
-            if (!user.equals(usuarioPadrao)) {
-                u = user;
-                break;
-            }
-        }
+        Usuario u = usuarios.get(0);
         String newLogin = "usuarioUpdated";
         u.setLogin(newLogin);
         dao.update(u);
@@ -99,13 +87,7 @@ public class UsuarioTest {
 
     @Test
     public void testMergeUsuario() {
-        Usuario u = new Usuario();
-        for (Usuario user : dao.listAll()) {
-            if (!user.equals(usuarioPadrao)) {
-                u = user;
-                break;
-            }
-        }
+        Usuario u = usuarios.get(0);
         String newLogin = "usuarioMerged";
         u.setLogin(newLogin);
         dao.merge(u);
@@ -116,9 +98,9 @@ public class UsuarioTest {
 
     @Test
     public void testDeleteUsuario() {
-        Usuario u = dao.buscarUsuarioPorLogin(usuarioPadrao.getLogin());
+        Usuario u = usuarios.get(0);
         dao.delete(u);
-        Assert.assertNull(dao.buscarUsuarioPorLogin(usuarioPadrao.getLogin()));
+        Assert.assertNull(dao.buscarUsuarioPorLogin(u.getLogin()));
     }
 
     @Test

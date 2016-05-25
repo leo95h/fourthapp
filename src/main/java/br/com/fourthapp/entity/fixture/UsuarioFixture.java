@@ -26,16 +26,16 @@ public class UsuarioFixture {
     }
 
     public static List<Usuario> usuarios(int size) {
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+        List<Usuario> usuarios = new ArrayList<>();
         if (size <= 0) {
             return usuarios;
         }
-        for (int x = 1; x < size; x++) {
+        for (int x = 1; x <= size; x++) {
             String login = LOGIN + x;
             String password = PASSWORD + x;
             usuarios.add(novoUsuario(login, password));
         }
-        usuarios.add(usuarioPadrao());
+//        usuarios.add(usuarioPadrao());
         return usuarios;
     }
 

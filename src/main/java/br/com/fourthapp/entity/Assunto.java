@@ -1,6 +1,8 @@
 package br.com.fourthapp.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -34,6 +36,7 @@ public class Assunto implements Serializable {
     private Set<Assunto> assuntos;
 
     public Assunto() {
+        this.assuntos = new HashSet<>();
     }
 
     public Assunto(String nome) {
@@ -42,7 +45,10 @@ public class Assunto implements Serializable {
 
     public Assunto(String nome, Assunto superior) {
         this.nome = nome;
-        this.superior = superior;
+        if (superior != null) {
+            this.superior = superior;
+            superior.getAssuntos().add(this);
+        }
     }
 
     public Long getId() {
@@ -70,6 +76,9 @@ public class Assunto implements Serializable {
     }
 
     public Set<Assunto> getAssuntos() {
+        if(assuntos == null) {
+            assuntos = new HashSet<>();
+        }
         return assuntos;
     }
 
@@ -79,23 +88,34 @@ public class Assunto implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.nome);
+        hash = 41 * hash + Objects.hashCode(this.superior);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Assunto)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Assunto other = (Assunto) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Assunto other = (Assunto) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.superior, other.superior)) {
             return false;
         }
         return true;
     }
+
+    
 
     @Override
     public String toString() {

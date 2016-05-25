@@ -5,9 +5,15 @@
  */
 package br.com.fourthapp.tests.model;
 
-import org.junit.After;
+import br.com.fourthapp.dao.impl.AvaliacaoDAOImpl;
+import br.com.fourthapp.dao.impl.PublicacaoDAOImpl;
+import br.com.fourthapp.dao.impl.UsuarioDAOImpl;
+import br.com.fourthapp.entity.Avaliacao;
+import br.com.fourthapp.entity.Publicacao;
+import br.com.fourthapp.entity.Usuario;
+import br.com.fourthapp.entity.fixture.UsuarioFixture;
+import java.util.List;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 
 /**
@@ -17,28 +23,36 @@ import org.junit.BeforeClass;
  */
 public class AvaliacaoTest {
     
+    private static UsuarioDAOImpl usuarioDao;
+    private static Usuario usuario;
+    
+    private static PublicacaoDAOImpl publicacaoDao;
+    private static Publicacao publicacao;
+    
+    private static AvaliacaoDAOImpl avaliacaoDao;
+    private static Avaliacao avaliacao;
+    private static Avaliacao avaliacaoTester;
+    private static List<Avaliacao> avaliacoes;
+    
+    
     public AvaliacaoTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        usuarioDao = new UsuarioDAOImpl();
+        usuario = UsuarioFixture.usuarioPadrao();
+        
+        publicacaoDao = new PublicacaoDAOImpl();
+        
+        
+        avaliacaoDao = new AvaliacaoDAOImpl();
+        
     }
     
     @AfterClass
     public static void tearDownClass() {
     }
     
-    @Before
-    public void setUp() {
-    }
     
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }
