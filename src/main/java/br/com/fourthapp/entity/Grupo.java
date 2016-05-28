@@ -2,6 +2,7 @@ package br.com.fourthapp.entity;
 
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,18 +10,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author fernando
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Grupo.findByNome", query = "select g from Grupo g where g.nome = :nome")
+})
 public class Grupo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false, unique = true)
     private String nome;
     @ManyToMany
     @JoinTable(name = "grupo_usuario", joinColumns = {
@@ -29,6 +36,10 @@ public class Grupo implements Serializable {
     private Set<Usuario> usuarios;
 
     public Grupo() {
+    }
+
+    public Grupo(String nome) {
+        this.nome = nome;
     }
 
     public Long getId() {

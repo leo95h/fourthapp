@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 
 /**
@@ -16,6 +18,11 @@ import javax.persistence.Temporal;
  * @author fernando
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Avaliacao.findByPublicacao", query = "select a from Avaliacao a where a.publicacao = :publicacao"),
+    @NamedQuery(name = "Avaliacao.findByUsuario", query = "select a from Avaliacao a where a.usuario = :usuario"),
+    @NamedQuery(name = "Avaliacao.findByTipo", query = "select a from Avaliacao a where a.tipoAvaliacao = :tipoAvaliacao")
+})
 public class Avaliacao implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,6 +39,13 @@ public class Avaliacao implements Serializable {
     private Publicacao publicacao;
 
     public Avaliacao() {
+    }
+
+    public Avaliacao(Calendar dataAvaliacao, TipoAvaliacao tipoAvaliacao, Usuario usuario, Publicacao publicacao) {
+        this.dataAvaliacao = dataAvaliacao;
+        this.tipoAvaliacao = tipoAvaliacao;
+        this.usuario = usuario;
+        this.publicacao = publicacao;
     }
 
     public Long getId() {
