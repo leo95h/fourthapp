@@ -60,26 +60,26 @@ public class PublicacaoTest {
     public void tearDown() {
     }
 
-    @Test
-    public void persistIfNotExists() {
-        Publicacao p = publicacaoDao.buscarPublicacaoPorNome(publicacao.getNome());
-        if (p == null) {
-            p = publicacaoDao.merge(publicacao);
-        }
-        Assert.assertNotNull(p);
-    }
-
-    @Test
-    public void findAllPublicacao() {
-        List<Publicacao> publicacoes = new ArrayList<>();
-        publicacoes = publicacaoDao.listAll();
-        Assert.assertFalse(publicacoes.isEmpty());
-    }
-
-    @Test
-    public void countPublicacao() {
-        int value = publicacaoDao.count();
-        Assert.assertFalse(value == 0);
-    }
+//    @Test
+//    public void persistIfNotExists() {
+//        Publicacao p = publicacaoDao.buscarPublicacaoPorNome(publicacao.getNome());
+//        if (p == null) {
+//            p = publicacaoDao.merge(publicacao);
+//        }
+//        Assert.assertNotNull(p);
+//    }
+//
+//    @Test
+//    public void findAllPublicacao() {
+//        List<Publicacao> publicacoes = new ArrayList<>();
+//        publicacoes = publicacaoDao.listAll();
+//        Assert.assertFalse(publicacoes.isEmpty());
+//    }
+//
+//    @Test
+//    public void countPublicacao() {
+//        int value = publicacaoDao.count();
+//        Assert.assertFalse(value == 0);
+//    }
 
 }
