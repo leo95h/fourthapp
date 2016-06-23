@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class UsuarioFixture {
 
+    private static final String DOMAIN = "@fourthapp.com.br";
     private static final String LOGIN = "fernando";
     private static final String PASSWORD = "senha";
 
@@ -40,6 +41,6 @@ public class UsuarioFixture {
     }
 
     public static Usuario novoUsuario(String login, String password) {
-        return new Usuario(login, password);
+        return new Usuario(login + DOMAIN, password);
     }
 }

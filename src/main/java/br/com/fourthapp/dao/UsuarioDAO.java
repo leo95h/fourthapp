@@ -8,5 +8,7 @@ import br.com.fourthapp.entity.Usuario;
  */
 public interface UsuarioDAO {
 
-    public Usuario buscarUsuarioPorLogin(String login);
+    Usuario buscarUsuarioPorLogin(String login);
+    
+    Usuario buscarUsuarioPorLoginESenha(String login, String senha);
 }

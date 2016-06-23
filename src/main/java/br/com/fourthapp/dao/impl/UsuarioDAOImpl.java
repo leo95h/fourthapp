@@ -32,4 +32,20 @@ public class UsuarioDAOImpl extends AbstractDAO<Usuario> implements UsuarioDAO {
         }
     }
 
+    @Override
+    public Usuario buscarUsuarioPorLoginESenha(String login, String senha) {
+        Query q = getEntityManager().createNamedQuery("Usuario.findByLoginSenha", Usuario.class);
+        q.setParameter("login", login);
+        q.setParameter("senha", senha);
+        List<Usuario> usuarios = q.getResultList();
+        if (usuarios.isEmpty()) {
+            return null;
+        }
+        if (usuarios.size() == 1) {
+            return usuarios.get(0);
+        } else {
+            throw new NonUniqueResultException();
+        }
+    }
+
 }

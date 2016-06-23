@@ -18,7 +18,8 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findByLogin", query = "select u from Usuario u where u.login = :login")
+    @NamedQuery(name = "Usuario.findByLogin", query = "select u from Usuario u where u.login = :login"),
+    @NamedQuery(name = "Usuario.findByLoginSenha", query = "select u from Usuario u where u.login = :login and u.senha = :senha")
 })
 public class Usuario implements Serializable {
 
@@ -28,6 +29,7 @@ public class Usuario implements Serializable {
     private Long id;
     @Column(unique = true, nullable = false)
     private String login;
+    @Column(nullable = false)
     private String senha;
     @ManyToMany
     private Set<Grupo> grupos;
