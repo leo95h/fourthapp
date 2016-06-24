@@ -1,35 +1,41 @@
 package br.com.fourthapp.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author fernando
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Pessoa.findByNome", query = "select p from Pessoa p where p.nome = :nome"),
-    @NamedQuery(name = "Pessoa.findByEmail", query = "select p from Pessoa p where p.email = :nome")
-})
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(length = 255, nullable = false)
     private String nome;
-    private String email;
-    @OneToOne
-    private Usuario usuario;
+    @Column(length = 255, nullable = false)
+    private String apelido;
+    @Column(nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date nascimento;
 
     public Pessoa() {
+    }
+
+    public Pessoa(String nome, String apelido, Date nascimento) {
+        this.nome = nome;
+        this.apelido = apelido;
+        this.nascimento = nascimento;
     }
 
     public Long getId() {
@@ -48,20 +54,20 @@ public class Pessoa implements Serializable {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getApelido() {
+        return apelido;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Date getNascimento() {
+        return nascimento;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
     }
 
     @Override
@@ -86,7 +92,7 @@ public class Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return nome + " - " + email;
+        return nome + " - " + apelido;
     }
 
 }

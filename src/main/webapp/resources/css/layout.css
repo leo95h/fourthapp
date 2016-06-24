@@ -1,0 +1,48 @@
+
+#top {
+    position: relative;
+    background-color: #036fab;
+    height: 100px;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+#top a:link, #top a:visited {
+    color: white;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+#top a:link:hover, #top a:visited:hover  {
+    color: black;
+    font-weight : bold;
+    text-decoration : underline;
+}
+
+#left {
+    float: left;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+.left_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin-left: 170px;
+}
+
+.center_content {
+    background-color: #dddddd;
+    padding: 5px;
+    position: relative;
+}
+
+#bottom {
+    position: relative;
+    background-color: #c2dfef;
+    height: 40px;
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+}

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputStylesheet library="css" name="layout.css"/>
+        <title><ui:insert name="title">Fourth App</ui:insert></title>
+    </h:head>
+
+    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+        <!--Barra de navegação superior-->
+        <b:navBar brand="FourthApp" brandHref="#" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:dropMenu rendered="#{sessionUI.logged}" value="Perfil">
+                    <b:navLink value="#{sessionUI.usuario.pessoa.nome}" action="/pages/usuario/edita" ></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink value="Configurações" href="#"></b:navLink>
+                </b:dropMenu>
+                <b:dropMenu rendered="#{sessionUI.logged}" value="Timeline">
+                    <b:navLink value="Action" href="#"></b:navLink>
+                    <b:navLink value="Another action" href="#"></b:navLink>
+                    <b:navLink value="Something else here" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="Separated link" href="#"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                <b:dropMenu rendered="#{sessionUI.logged}" value="Pessoas">
+                    <b:navLink value="Action" href="#"></b:navLink>
+                    <b:navLink value="Another action" href="#"></b:navLink>
+                    <b:navLink value="Something else here" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="Separated link" href="#"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                <b:dropMenu rendered="#{sessionUI.logged}" value="Chats">
+                    <b:navLink value="Action" href="#"></b:navLink>
+                    <b:navLink value="Another action" href="#"></b:navLink>
+                    <b:navLink value="Something else here" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="Separated link" href="#"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                <b:navLink value="Ajuda" href="#"></b:navLink>
+                <b:navLink value="Sobre" href="#"></b:navLink>
+            </b:navbarLinks>
+            <h:form id="loginFrm" styleClass="navbar-form navbar-right">
+                <div class="form-group">
+                    <b:inputText placeholder="Email" fieldSize="sm" value="#{sessionUI.login}" rendered="#{!sessionUI.logged}"/>
+                    #{' '}
+                    <b:inputSecret placeholder="Senha" fieldSize="sm" value="#{sessionUI.senha}" rendered="#{!sessionUI.logged}"/>
+                </div> 
+                #{' '}
+                <b:commandButton id="loginBtn" action="#{sessionUI.doLogin()}" value="Login" 
+                                 look="success" icon="chevron-right" iconAlign="right" rendered="#{!sessionUI.logged}" />
+                #{' '}
+                <b:commandButton id="newBtn" action="#{sessionUI.novoUsuario()}" value="Cadastro"
+                                 look="info" icon="chevron-right" iconAlign="right" rendered="#{!sessionUI.logged}" />
+                <b:commandButton id="logoutBtn" action="#{sessionUI.doLogout()}" value="Logout" 
+                                 look="success" icon="chevron-right" iconAlign="right" rendered="#{sessionUI.logged}" />
+            </h:form>
+        </b:navBar>
+        <!--Fim da barra de navegação-->
+        <h:form id="formulario">
+            <b:container>
+                <ui:insert name="center" />
+            </b:container>
+        </h:form>
+
+        <b:navBar brand="Powered by Fernando C. Paschualetto" brandHref="#" inverse="true" fixed="bottom" />
+    </h:body>
+
+</html>
