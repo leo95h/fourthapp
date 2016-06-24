@@ -1,7 +1,9 @@
 package br.com.fourthapp.entity.fixture;
 
+import br.com.fourthapp.entity.Pessoa;
 import br.com.fourthapp.entity.Usuario;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +43,9 @@ public class UsuarioFixture {
     }
 
     public static Usuario novoUsuario(String login, String password) {
-        return new Usuario(login + DOMAIN, password);
+        Usuario u = new Usuario(login + DOMAIN, password);
+        Pessoa p = new Pessoa(login, login, new Date(), u);
+        u.setPessoa(p);
+        return u;
     }
 }

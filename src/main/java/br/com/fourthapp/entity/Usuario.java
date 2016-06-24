@@ -3,14 +3,17 @@ package br.com.fourthapp.entity;
 import br.com.fourthapp.util.Criptografia;
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -31,6 +34,8 @@ public class Usuario implements Serializable {
     private String login;
     @Column(nullable = false)
     private String senha;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Pessoa pessoa;
     @ManyToMany
     private Set<Grupo> grupos;
 
@@ -72,6 +77,14 @@ public class Usuario implements Serializable {
 
     public void setGrupos(Set<Grupo> grupos) {
         this.grupos = grupos;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     @Override
