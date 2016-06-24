@@ -44,7 +44,7 @@ public class UsuarioFixture {
 
     public static Usuario novoUsuario(String login, String password) {
         Usuario u = new Usuario(login + DOMAIN, password);
-        Pessoa p = new Pessoa(login, login, new Date(), u);
+        Pessoa p = new Pessoa(login, login, new Date());
         u.setPessoa(p);
         return u;
     }

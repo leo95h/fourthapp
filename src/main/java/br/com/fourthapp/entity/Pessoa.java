@@ -28,17 +28,14 @@ public class Pessoa implements Serializable {
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date nascimento;
-    @OneToOne
-    private Usuario usuario;
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, String apelido, Date nascimento, Usuario usuario) {
+    public Pessoa(String nome, String apelido, Date nascimento) {
         this.nome = nome;
         this.apelido = apelido;
         this.nascimento = nascimento;
-        this.usuario = usuario;
     }
 
     public Long getId() {
@@ -55,14 +52,6 @@ public class Pessoa implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public String getApelido() {
